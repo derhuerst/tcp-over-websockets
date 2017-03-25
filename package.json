@@ -18,5 +18,9 @@
 		"node": ">=6"
 	},
 	"dependencies": {
+		"websocket-stream": "^3.3.3"
+	},
+	"scripts": {
+		"start": "node server.js"
 	}
 }
