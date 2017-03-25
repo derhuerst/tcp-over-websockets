@@ -6,6 +6,9 @@ const http = require('http')
 const url = require('url')
 const path = require('path')
 const ws = require('websocket-stream')
+const pipe = require('multipipe')
+
+const noop = () => {}
 
 const showError = (msg) => {
 	console.error(msg)
@@ -34,7 +37,12 @@ const wsServer = ws.createServer({
 }, (remote) => {
 	const req = remote.socket.upgradeReq
 	const target = net.createConnection(req.tunnelPort, req.tunnelHostname)
-	target.pipe(remote).pipe(target)
+
+	target.on('connect', () => {
+		// mute errors here
+		pipe(remote, target, noop)
+		pipe(target, remote, noop)
+	})
 })
 
 httpServer.listen(8080, (err) => {

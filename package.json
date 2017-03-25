@@ -23,6 +23,7 @@
 	},
 	"dependencies": {
 		"minimist": "^1.2.0",
+		"multipipe": "^1.0.2",
 		"websocket-stream": "^3.3.3"
 	},
 	"scripts": {

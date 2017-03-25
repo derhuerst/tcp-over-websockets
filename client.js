@@ -4,8 +4,11 @@
 const minimist = require('minimist')
 const net = require('net')
 const ws = require('websocket-stream')
+const pipe = require('multipipe')
 
 const pkg = require('./package.json')
+
+const noop = () => {}
 
 const showError = (msg) => {
 	console.error(msg)
@@ -47,7 +50,10 @@ const tcpServer = net.createServer()
 
 tcpServer.on('connection', (local) => {
 	const remote = ws(tunnel + (tunnel.slice(-1) === '/' ? '' : '/') + target)
-	local.pipe(remote).pipe(local)
+
+	// mute errors here
+	pipe(remote, local, noop)
+	pipe(local, remote, noop)
 })
 
 tcpServer.listen(port, (err) => {
