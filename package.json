@@ -3,7 +3,11 @@
 	"description": "Tunnel TCP through WebSockets.",
 	"version": "0.1.0",
 	"main": "server.js",
+	"bin": {
+		"tcp-over-websocket": "./client.js"
+	},
 	"files": [
+		"client.js",
 		"server.js"
 	],
 	"keywords": [
@@ -18,6 +22,7 @@
 		"node": ">=6"
 	},
 	"dependencies": {
+		"minimist": "^1.2.0",
 		"websocket-stream": "^3.3.3"
 	},
 	"scripts": {
