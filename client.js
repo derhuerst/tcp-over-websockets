@@ -17,12 +17,12 @@ const argv = minimist(process.argv.slice(2))
 if (argv.help || argv.h) {
 	process.stdout.write(`
 Usage:
-    tcp-over-websocket --tunnel wss://example.org --remote-port 22 --local-port 8022
+    tcp-over-websocket --tunnel wss://example.org --target localhost:22 --port 8022
 
 Parameters:
-    --tunnel       the WebSocket address of the tunnel server
-    --remote-port  the port to tunnel
-    --local-port   the port to listen on
+    --tunnel  the WebSocket address of the tunnel server
+    --target  the hostname & port to connect to
+    --port    the port to listen on
 \n`)
 	process.exit()
 }
@@ -35,24 +35,22 @@ if (argv.version || argv.v) {
 if (!argv.tunnel) showError('missing --tunnel parameter')
 const tunnel = argv.tunnel
 
-if (!argv['remote-port']) showError('missing --remote-port parameter')
-const remotePort = argv['remote-port']
+if (!argv['target']) showError('missing --target parameter')
+const target = argv['target']
 
-if (!argv['local-port']) showError('missing --local-port parameter')
-const localPort = argv['local-port']
+if (!argv['port']) showError('missing --port parameter')
+const port = argv['port']
 
 
 
 const tcpServer = net.createServer()
-// todo: make this more robust
-const target = tunnel + (tunnel.slice(-1) === '/' ? '' : '/') + remotePort
 
 tcpServer.on('connection', (local) => {
-	const remote = ws(target)
+	const remote = ws(tunnel + (tunnel.slice(-1) === '/' ? '' : '/') + target)
 	local.pipe(remote).pipe(local)
 })
 
-tcpServer.listen(localPort, (err) => {
+tcpServer.listen(port, (err) => {
 	if (err) showError(err)
-	else console.info('listening on ' + localPort)
+	else console.info(`listening on ${port}, exposing ${target} via ${tunnel}`)
 })

@@ -12,28 +12,29 @@ const showError = (msg) => {
 	process.exit(1)
 }
 
-const validPort = /^[\d]+$/
-
 const verifyRequest = (req, res) => {
 	if (req.upgrade) return
 	res.statusCode = 405
 	res.end('connect via WebSocket protocol')
 }
 
+const httpServer = http.createServer(verifyRequest)
+
 const verifyClient = ({req}, cb) => {
-	const port = url.parse(req.url).pathname.slice(1)
-	req.tunneledPort = +port
-	cb(validPort.test(port), 400, 'invalid port')
+	const target = url.parse(req.url).pathname.slice(1)
+	const [hostname, port] = target.split(':')
+	req.tunnelPort = +port
+	req.tunnelHostname = hostname
+	cb(!isNaN(port) && hostname, 400, 'invalid target')
 }
 
-const httpServer = http.createServer(verifyRequest)
 const wsServer = ws.createServer({
 	server: httpServer,
 	verifyClient
 }, (remote) => {
 	const req = remote.socket.upgradeReq
-	const local = net.createConnection({port: req.tunneledPort})
-	local.pipe(remote).pipe(local)
+	const target = net.createConnection(req.tunnelPort, req.tunnelHostname)
+	target.pipe(remote).pipe(target)
 })
 
 httpServer.listen(8080, (err) => {
