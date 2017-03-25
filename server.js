@@ -14,13 +14,19 @@ const showError = (msg) => {
 
 const validPort = /^[\d]+$/
 
+const verifyRequest = (req, res) => {
+	if (req.upgrade) return
+	res.statusCode = 405
+	res.end('connect via WebSocket protocol')
+}
+
 const verifyClient = ({req}, cb) => {
 	const port = url.parse(req.url).pathname.slice(1)
 	req.tunneledPort = +port
 	cb(validPort.test(port), 400, 'invalid port')
 }
 
-const httpServer = http.createServer()
+const httpServer = http.createServer(verifyRequest)
 const wsServer = ws.createServer({
 	server: httpServer,
 	verifyClient
