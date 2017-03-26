@@ -20,7 +20,7 @@ const argv = minimist(process.argv.slice(2))
 if (argv.help || argv.h) {
 	process.stdout.write(`
 Usage:
-    tcp-over-websocket --tunnel wss://example.org --target localhost:22 --port 8022
+    tcp-over-websockets --tunnel wss://example.org --target localhost:22 --port 8022
 
 Parameters:
     --tunnel  the WebSocket address of the tunnel server
