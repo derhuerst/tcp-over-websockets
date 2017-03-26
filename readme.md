@@ -2,6 +2,8 @@
 
 **Tunnel TCP through WebSockets.** Access anything you want, even from a crappy WiFi which only allows HTTPS.
 
+*Note:* [chisel](https://github.com/jpillora/chisel) is probably the same thing but better.
+
 [![npm version](https://img.shields.io/npm/v/tcp-over-websockets.svg)](https://www.npmjs.com/package/tcp-over-websockets)
 ![ISC-licensed](https://img.shields.io/github/license/derhuerst/tcp-over-websockets.svg)
 [![chat on gitter](https://badges.gitter.im/derhuerst.svg)](https://gitter.im/derhuerst)
@@ -22,8 +24,8 @@ Works like `ssh -N -L 8022:github.com:22 user@example.org`, except that it's TCP
 ## tunneling server
 
 ```shell
-npm i tcp-over-websockets
-node node_modules/tcp-over-websockets/server.js # todo
+npm i -g tcp-over-websockets
+tcp-over-websockets-server
 ```
 
 There's a public server running at `wss://tcp-over-websockets-abvntgfmzf.now.sh`, powered by [now](https://zeit.co/now) ❤.

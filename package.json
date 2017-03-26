@@ -4,7 +4,8 @@
 	"version": "0.1.1",
 	"main": "server.js",
 	"bin": {
-		"tcp-over-websocket": "./client.js"
+		"tcp-over-websocket": "./client.js",
+		"tcp-over-websockets-server": "./server.js"
 	},
 	"files": [
 		"client.js",

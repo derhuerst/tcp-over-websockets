@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 'use strict'
 
+const minimist = require('minimist')
 const net = require('net')
 const http = require('http')
 const url = require('url')
@@ -14,6 +15,23 @@ const showError = (msg) => {
 	console.error(msg)
 	process.exit(1)
 }
+
+const argv = minimist(process.argv.slice(2))
+
+if (argv.help || argv.h) {
+	process.stdout.write(`
+Usage:
+    tcp-over-websockets-server
+\n`)
+	process.exit()
+}
+
+if (argv.version || argv.v) {
+	process.stdout.write(`${pkg.name} v${pkg.version}\n`)
+	process.exit()
+}
+
+
 
 const verifyRequest = (req, res) => {
 	if (req.upgrade) return
