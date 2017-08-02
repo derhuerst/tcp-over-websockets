@@ -12,7 +12,10 @@
 		"server.js"
 	],
 	"keywords": [
-		"tcp", "tunnel", "websocket", "http"
+		"tcp",
+		"tunnel",
+		"websocket",
+		"http"
 	],
 	"author": "Jannis R <mail@jannisr.de>",
 	"homepage": "https://github.com/derhuerst/tcp-over-websockets",
@@ -23,9 +26,9 @@
 		"node": ">=6"
 	},
 	"dependencies": {
-		"minimist": "^1.2.0",
+		"mri": "^1.1.0",
 		"multipipe": "^1.0.2",
-		"websocket-stream": "^3.3.3"
+		"websocket-stream": "^5.1.1"
 	},
 	"scripts": {
 		"start": "node server.js"

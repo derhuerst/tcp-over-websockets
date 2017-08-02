@@ -2,7 +2,7 @@
 
 **Tunnel TCP through WebSockets.** Access anything you want, even from a crappy WiFi which only allows HTTPS.
 
-*Note:* [chisel](https://github.com/jpillora/chisel) is probably the same thing but better.
+*Note:* [chisel](https://github.com/jpillora/chisel) is probably the same thing but better. [`@mdslab/wstun`](https://github.com/MDSLab/wstun) is similar.
 
 [![npm version](https://img.shields.io/npm/v/tcp-over-websockets.svg)](https://www.npmjs.com/package/tcp-over-websockets)
 ![ISC-licensed](https://img.shields.io/github/license/derhuerst/tcp-over-websockets.svg)

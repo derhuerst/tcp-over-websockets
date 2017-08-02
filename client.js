@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict'
 
-const minimist = require('minimist')
+const mri = require('mri')
 const net = require('net')
 const ws = require('websocket-stream')
 const pipe = require('multipipe')
@@ -15,7 +15,9 @@ const showError = (msg) => {
 	process.exit(1)
 }
 
-const argv = minimist(process.argv.slice(2))
+const argv = mri(process.argv.slice(2), {
+	boolean: ['help', 'h', 'version', 'v']
+})
 
 if (argv.help || argv.h) {
 	process.stdout.write(`
@@ -38,11 +40,11 @@ if (argv.version || argv.v) {
 if (!argv.tunnel) showError('missing --tunnel parameter')
 const tunnel = argv.tunnel
 
-if (!argv['target']) showError('missing --target parameter')
-const target = argv['target']
+if (!argv.target) showError('missing --target parameter')
+const target = argv.target
 
-if (!argv['port']) showError('missing --port parameter')
-const port = argv['port']
+if (!argv.port) showError('missing --port parameter')
+const port = argv.port
 
 
 

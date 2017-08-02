@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict'
 
-const minimist = require('minimist')
+const mri = require('mri')
 const net = require('net')
 const http = require('http')
 const url = require('url')
@@ -16,7 +16,9 @@ const showError = (msg) => {
 	process.exit(1)
 }
 
-const argv = minimist(process.argv.slice(2))
+const argv = mri(process.argv.slice(2), {
+	boolean: ['help', 'h', 'version', 'v']
+})
 
 if (argv.help || argv.h) {
 	process.stdout.write(`
