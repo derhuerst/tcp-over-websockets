@@ -11,17 +11,33 @@
 
 ## tunneling client
 
+Using [`npx`](https://www.npmjs.com/package/npx):
+
+```shell
+npx tcp-over-websockets --tunnel wss://example.org --target github.com:22 --port 8022
+```
+
+Or by installing manually [`npx`](https://www.npmjs.com/package/npx):
+
 ```shell
 npm install -g tcp-over-websockets
 tcp-over-websockets --tunnel wss://example.org --target github.com:22 --port 8022
 ```
 
-This will expose `github.com:22` on `localhost:8022`, tunneled through `example.org`. `example.org` is the tunneling server.
+This will expose `github.com:22` on `localhost:8022`, tunneled through a tunneling server at `example.org`.
 
 Works like `ssh -N -L 8022:github.com:22 user@example.org`, except that it's TCP over WebSockets instead of TCP over SSH.
 
 
 ## tunneling server
+
+Using [`npx`](https://www.npmjs.com/package/npx):
+
+```shell
+npx -p tcp-over-websockets tcp-over-websockets-server
+```
+
+Or by installing manually:
 
 ```shell
 npm i -g tcp-over-websockets
