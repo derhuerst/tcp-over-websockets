@@ -7,6 +7,7 @@
 [![npm version](https://img.shields.io/npm/v/tcp-over-websockets.svg)](https://www.npmjs.com/package/tcp-over-websockets)
 ![ISC-licensed](https://img.shields.io/github/license/derhuerst/tcp-over-websockets.svg)
 [![chat on gitter](https://badges.gitter.im/derhuerst.svg)](https://gitter.im/derhuerst)
+[![support me on Patreon](https://img.shields.io/badge/support%20me-on%20patreon-fa7664.svg)](https://patreon.com/derhuerst)
 
 
 ## tunneling client
@@ -17,7 +18,7 @@ Using [`npx`](https://www.npmjs.com/package/npx):
 npx tcp-over-websockets --tunnel wss://example.org --target github.com:22 --port 8022
 ```
 
-Or by installing manually [`npx`](https://www.npmjs.com/package/npx):
+Or by installing manually:
 
 ```shell
 npm install -g tcp-over-websockets
@@ -44,7 +45,7 @@ npm i -g tcp-over-websockets
 tcp-over-websockets-server
 ```
 
-There's a public server running at `wss://tcp-over-websockets-abvntgfmzf.now.sh`, powered by [now](https://zeit.co/now) ❤.
+There's a public server running at `wss://tcp-over-websockets-pszypannso.now.sh`, powered by [now](https://zeit.co/now) ❤.
 
 
 ## Contributing
