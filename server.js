@@ -7,7 +7,7 @@ const http = require('http')
 const url = require('url')
 const path = require('path')
 const ws = require('websocket-stream')
-const pipe = require('multipipe')
+const pipe = require('pump')
 
 const noop = () => {}
 

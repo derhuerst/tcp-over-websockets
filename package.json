@@ -27,7 +27,7 @@
 	},
 	"dependencies": {
 		"mri": "^1.1.0",
-		"multipipe": "^1.0.2",
+		"pump": "^3.0.0",
 		"websocket-stream": "^5.1.1"
 	},
 	"scripts": {

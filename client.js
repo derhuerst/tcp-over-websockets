@@ -4,7 +4,7 @@
 const mri = require('mri')
 const net = require('net')
 const ws = require('websocket-stream')
-const pipe = require('multipipe')
+const pipe = require('pump')
 
 const pkg = require('./package.json')
 
