@@ -5,6 +5,7 @@ const mri = require('mri')
 const net = require('net')
 const ws = require('websocket-stream')
 const pipe = require('pump')
+const debug = require('debug')('tcp-over-websockets:client')
 
 const pkg = require('./package.json')
 
@@ -53,9 +54,11 @@ const tcpServer = net.createServer()
 tcpServer.on('connection', (local) => {
 	const remote = ws(tunnel + (tunnel.slice(-1) === '/' ? '' : '/') + target)
 
-	// mute errors here
-	pipe(remote, local, noop)
-	pipe(local, remote, noop)
+	const onError = (err) => {
+		if (err) debug(err)
+	}
+	pipe(remote, local, onError)
+	pipe(local, remote, onError)
 })
 
 tcpServer.listen(port, (err) => {

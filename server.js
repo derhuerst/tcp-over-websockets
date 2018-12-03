@@ -8,6 +8,7 @@ const url = require('url')
 const path = require('path')
 const ws = require('websocket-stream')
 const pipe = require('pump')
+const debug = require('debug')('tcp-over-websockets:server')
 
 const noop = () => {}
 
@@ -58,10 +59,12 @@ const wsServer = ws.createServer({
 	const req = remote.socket.upgradeReq
 	const target = net.createConnection(req.tunnelPort, req.tunnelHostname)
 
+	const onError = (err) => {
+		if (err) debug(err)
+	}
 	target.on('connect', () => {
-		// mute errors here
-		pipe(remote, target, noop)
-		pipe(target, remote, noop)
+		pipe(remote, target, onError)
+		pipe(target, remote, onError)
 	})
 })
 

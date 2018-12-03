@@ -1,7 +1,7 @@
 {
 	"name": "tcp-over-websockets",
 	"description": "Tunnel TCP through WebSockets.",
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"main": "server.js",
 	"bin": {
 		"tcp-over-websockets": "./client.js",
@@ -26,6 +26,7 @@
 		"node": ">=6"
 	},
 	"dependencies": {
+		"debug": "^4.1.0",
 		"mri": "^1.1.0",
 		"pump": "^3.0.0",
 		"websocket-stream": "^5.1.1"
