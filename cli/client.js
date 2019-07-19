@@ -11,12 +11,13 @@ const argv = mri(process.argv.slice(2), {
 if (argv.help || argv.h) {
 	process.stdout.write(`
 Usage:
-    tcp-over-websockets --tunnel wss://example.org --target localhost:22 --port 8022
-
-Parameters:
-    --tunnel  the WebSocket address of the tunnel server
-    --target  the hostname & port to connect to
-    --port    the port to listen on
+    tcp-over-websockets <tunnel-url> <tunnelled-target> <port-to-listen-on>
+Arguments:
+    tunnel-url         The WebSocket address of the tunnel server.
+    tunnelled-target   The hostname & port to let the tunnel server connect to.
+    port-to-listen-on  The (local) port to expose the tunnel on.
+Example:
+    tcp-over-websockets wss://example.org --target localhost:22 --port 8022
 \n`)
 	process.exit(0)
 }
@@ -32,16 +33,14 @@ const showError = (msg) => {
 	process.exit(1)
 }
 
-if (!argv.tunnel) showError('missing --tunnel parameter')
-const tunnel = argv.tunnel
-
-if (!argv.target) showError('missing --target parameter')
-const target = argv.target
-
-if (!argv.port) showError('missing --port parameter')
-const port = argv.port
+const tunnel = argv._[0]
+if (!tunnel) showError('missing tunnel argument')
+const target = argv._[1]
+if (!target) showError('missing target argument')
+const port = argv._[2]
+if (!port) showError('missing port argument')
 
 startClient(tunnel, target, port, (err) => {
 	if (err) showError(err)
-	else console.info(`listening on ${port}, exposing ${target} via ${tunnel}`)
+	else console.info(`tunneling ${target} via ${tunnel} & exposing it on port ${port}`)
 })

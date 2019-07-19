@@ -12,6 +12,8 @@ if (argv.help || argv.h) {
 	process.stdout.write(`
 Usage:
     tcp-over-websockets-server
+Options:
+    --port    -p  The port to listen on. Default: 8080
 \n`)
 	process.exit()
 }
@@ -23,12 +25,11 @@ if (argv.version || argv.v) {
 
 const startServer = require('../server')
 
-const showError = (msg) => {
-	console.error(msg)
-	process.exit(1)
-}
+const port = parseInt(argv.port || argv.p || 8080)
 
-startServer(8080, (err) => {
-	if (err) showError(err)
-	else console.info('listening on 8080')
+startServer(port, (err) => {
+	if (err) {
+		console.error(err)
+		process.exit(1)
+	} else console.info(`listening on ${port}`)
 })
