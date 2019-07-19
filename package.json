@@ -1,7 +1,7 @@
 {
 	"name": "tcp-over-websockets",
 	"description": "Tunnel TCP through WebSockets.",
-	"version": "0.2.1",
+	"version": "0.2.2",
 	"main": "server.js",
 	"bin": {
 		"tcp-over-websockets": "./client.js",
