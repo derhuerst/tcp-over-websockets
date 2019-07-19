@@ -15,14 +15,14 @@
 Using [`npx`](https://www.npmjs.com/package/npx):
 
 ```shell
-npx tcp-over-websockets --tunnel wss://example.org --target github.com:22 --port 8022
+npx tcp-over-websockets wss://example.org github.com:22 8022
 ```
 
 Or by installing manually:
 
 ```shell
 npm install -g tcp-over-websockets
-tcp-over-websockets --tunnel wss://example.org --target github.com:22 --port 8022
+tcp-over-websockets wss://example.org github.com:22 8022
 ```
 
 This will expose `github.com:22` on `localhost:8022`, tunneled through a tunneling server at `example.org`.
@@ -44,8 +44,6 @@ Or by installing manually:
 npm i -g tcp-over-websockets
 tcp-over-websockets-server
 ```
-
-There's a public server running at `wss://tcp-over-websockets-pszypannso.now.sh`, powered by [now](https://zeit.co/now) ❤.
 
 
 ## Contributing
