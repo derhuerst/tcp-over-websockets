@@ -2,19 +2,7 @@
 'use strict'
 
 const mri = require('mri')
-const net = require('net')
-const ws = require('websocket-stream')
-const pipe = require('pump')
-const debug = require('debug')('tcp-over-websockets:client')
-
 const pkg = require('./package.json')
-
-const noop = () => {}
-
-const showError = (msg) => {
-	console.error(msg)
-	process.exit(1)
-}
 
 const argv = mri(process.argv.slice(2), {
 	boolean: ['help', 'h', 'version', 'v']
@@ -30,12 +18,21 @@ Parameters:
     --target  the hostname & port to connect to
     --port    the port to listen on
 \n`)
-	process.exit()
+	process.exit(0)
 }
-
 if (argv.version || argv.v) {
 	process.stdout.write(`${pkg.name} v${pkg.version}\n`)
-	process.exit()
+	process.exit(0)
+}
+
+const ws = require('websocket-stream')
+const {createServer} = require('net')
+const pipe = require('pump')
+const debug = require('debug')('tcp-over-websockets:client')
+
+const showError = (msg) => {
+	console.error(msg)
+	process.exit(1)
 }
 
 if (!argv.tunnel) showError('missing --tunnel parameter')
@@ -47,11 +44,7 @@ const target = argv.target
 if (!argv.port) showError('missing --port parameter')
 const port = argv.port
 
-
-
-const tcpServer = net.createServer()
-
-tcpServer.on('connection', (local) => {
+const tcpServer = createServer((local) => {
 	const remote = ws(tunnel + (tunnel.slice(-1) === '/' ? '' : '/') + target)
 
 	const onError = (err) => {

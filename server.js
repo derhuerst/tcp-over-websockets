@@ -2,20 +2,7 @@
 'use strict'
 
 const mri = require('mri')
-const net = require('net')
-const http = require('http')
-const url = require('url')
-const path = require('path')
-const ws = require('websocket-stream')
-const pipe = require('pump')
-const debug = require('debug')('tcp-over-websockets:server')
-
-const noop = () => {}
-
-const showError = (msg) => {
-	console.error(msg)
-	process.exit(1)
-}
+const pkg = require('./package.json')
 
 const argv = mri(process.argv.slice(2), {
 	boolean: ['help', 'h', 'version', 'v']
@@ -34,7 +21,17 @@ if (argv.version || argv.v) {
 	process.exit()
 }
 
+const {createConnection} = require('net')
+const {createServer: createHttpServer} = require('http')
+const url = require('url')
+const {createServer: createWsServer} = require('websocket-stream')
+const pump = require('pump')
+const debug = require('debug')('tcp-over-websockets:server')
 
+const showError = (msg) => {
+	console.error(msg)
+	process.exit(1)
+}
 
 const verifyRequest = (req, res) => {
 	if (req.upgrade) return
@@ -42,7 +39,7 @@ const verifyRequest = (req, res) => {
 	res.end('connect via WebSocket protocol')
 }
 
-const httpServer = http.createServer(verifyRequest)
+const httpServer = createHttpServer(verifyRequest)
 
 const verifyClient = ({req}, cb) => {
 	const target = url.parse(req.url).pathname.slice(1)
@@ -52,19 +49,19 @@ const verifyClient = ({req}, cb) => {
 	cb(!isNaN(port) && hostname, 400, 'invalid target')
 }
 
-const wsServer = ws.createServer({
+const wsServer = createWsServer({
 	server: httpServer,
 	verifyClient
 }, (remote) => {
 	const req = remote.socket.upgradeReq
 	const target = net.createConnection(req.tunnelPort, req.tunnelHostname)
 
-	const onError = (err) => {
+	const onStreamError = (err) => {
 		if (err) debug(err)
 	}
 	target.on('connect', () => {
-		pipe(remote, target, onError)
-		pipe(target, remote, onError)
+		pump(remote, target, onStreamError)
+		pump(target, remote, onStreamError)
 	})
 })
 
