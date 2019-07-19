@@ -4,12 +4,13 @@
 	"version": "0.2.2",
 	"main": "server.js",
 	"bin": {
-		"tcp-over-websockets": "./client.js",
-		"tcp-over-websockets-server": "./server.js"
+		"tcp-over-websockets": "./cli/client.js",
+		"tcp-over-websockets-server": "./cli/server.js"
 	},
 	"files": [
 		"client.js",
-		"server.js"
+		"server.js",
+		"cli"
 	],
 	"keywords": [
 		"tcp",
