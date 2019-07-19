@@ -52,14 +52,14 @@ const verifyClient = ({req}, cb) => {
 const wsServer = createWsServer({
 	server: httpServer,
 	verifyClient
-}, (remote) => {
-	const req = remote.socket.upgradeReq
-	const target = net.createConnection(req.tunnelPort, req.tunnelHostname)
+}, (remote, req) => {
+	const target = createConnection(req.tunnelPort, req.tunnelHostname)
+	target.on('error', console.error)
 
 	const onStreamError = (err) => {
 		if (err) debug(err)
 	}
-	target.on('connect', () => {
+	target.once('connect', () => {
 		pump(remote, target, onStreamError)
 		pump(target, remote, onStreamError)
 	})
