@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+  - 'stable'
+  - 'lts/*'
+  - '8'
+cache: npm
+notifications:
+  email:
+    on_success: never
