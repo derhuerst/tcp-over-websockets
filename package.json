@@ -1,7 +1,7 @@
 {
 	"name": "tcp-over-websockets",
 	"description": "Tunnel TCP through WebSockets.",
-	"version": "1.0.1",
+	"version": "2.0.0",
 	"main": "server.js",
 	"bin": {
 		"tcp-over-websockets": "./cli/client.js",
@@ -24,7 +24,7 @@
 	"bugs": "https://github.com/derhuerst/tcp-over-websockets/issues",
 	"license": "ISC",
 	"engines": {
-		"node": ">=8"
+		"node": ">=14"
 	},
 	"dependencies": {
 		"debug": "^4.1.0",
@@ -33,6 +33,8 @@
 		"websocket-stream": "^5.1.1"
 	},
 	"scripts": {
-		"start": "node server.js"
+		"start": "node server.js",
+		"test": "node test.js",
+		"prepublishOnly": "npm test"
 	}
 }
