@@ -17,7 +17,7 @@ Arguments:
     tunnelled-target   The hostname & port to let the tunnel server connect to.
     port-to-listen-on  The (local) port to expose the tunnel on.
 Example:
-    tcp-over-websockets wss://example.org --target localhost:22 --port 8022
+    tcp-over-websockets wss://example.org localhost:22 8022
 \n`)
 	process.exit(0)
 }
