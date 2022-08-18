@@ -33,8 +33,12 @@
 		"websocket-stream": "^5.1.1"
 	},
 	"scripts": {
+		"lint": "eslint .",
 		"start": "node server.js",
 		"test": "node test.js",
-		"prepublishOnly": "npm test"
+		"prepublishOnly": "npm run lint && npm test"
+	},
+	"devDependencies": {
+		"eslint": "^8.22.0"
 	}
 }
