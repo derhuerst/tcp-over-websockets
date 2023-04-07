@@ -10,6 +10,7 @@
 	"files": [
 		"client.js",
 		"server.js",
+		"tunnel.js",
 		"cli"
 	],
 	"keywords": [
