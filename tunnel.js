@@ -12,6 +12,7 @@ const tunnelTo = (tunnel, target) => (local) => {
 	}
 	pipe(remote, local, onError)
 	pipe(local, remote, onError)
+	return remote
 }
 
 module.exports = {tunnelTo}
