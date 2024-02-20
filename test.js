@@ -18,7 +18,11 @@ httpServer.listen(5000, (err) => {
 	const server = startServer(8080, (err) => {
 		if (err) return showError(err)
 
-		const client = startClient('ws://localhost:8080', 'localhost:5000', 5001, (err) => {
+		const headers = {
+			foo: 'BaR',
+			hello: 'world',
+		}
+		const client = startClient('ws://localhost:8080', 'localhost:5000', 5001, {headers}, (err) => {
 			if (err) return showError(err)
 
 			httpGet('http://localhost:5001', (res) => {
