@@ -1,7 +1,7 @@
 {
 	"name": "tcp-over-websockets",
 	"description": "Tunnel TCP through WebSockets.",
-	"version": "2.1.0",
+	"version": "2.2.0",
 	"main": "server.js",
 	"bin": {
 		"tcp-over-websockets": "./cli/client.js",
@@ -20,6 +20,9 @@
 		"http"
 	],
 	"author": "Jannis R <mail@jannisr.de>",
+	"contributors": [
+		"xiaoyun94 <xiaoyun94@qq.com>"
+	],
 	"homepage": "https://github.com/derhuerst/tcp-over-websockets",
 	"repository": "derhuerst/tcp-over-websockets",
 	"bugs": "https://github.com/derhuerst/tcp-over-websockets/issues",
